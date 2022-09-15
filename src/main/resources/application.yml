@@ -15,6 +15,7 @@ spring:
     username: mljoivfzroyjcn
     password: ea03e71eb1d81ebd06a55e1b30d7d4a4e4ef1cbc734cbfa9119e0e1fde0741c5
 
+
   liquibase:
     change-log: classpath:/liquibase/db.changelog.xml
   mvc:

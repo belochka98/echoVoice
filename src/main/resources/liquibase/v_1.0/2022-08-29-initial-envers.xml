@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="2022-08-29-create-table-revinfo" author="belochka">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <not>
+                <tableExists tableName="revinfo"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="revinfo" remarks="Ревизия аудита">
+            <column name="rev" autoIncrement="true" type="serial" remarks="Идентификатор записи">
+                <constraints primaryKeyName="revinfo_pkey" primaryKey="true" nullable="false"/>
+            </column>
+            <column name="revtstmp" type="bigint" remarks="Время создания ревизии">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="varchar(120)" remarks="Имя пользователя">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-08-29-create-table-user-application-audit" author="belochka">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <not>
+                <tableExists tableName="user_application_audit"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="user_application_audit" remarks="История изменения пользователя">
+            <column name="id" type="varchar(36)" remarks="Идентификатор записи">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean" defaultValue="true" remarks="Флаг активности">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(120)" remarks="Имя пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="varchar(120)" remarks="Фамилия пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patronymic" type="varchar(120)" remarks="Отчество пользователя"/>
+            <column name="date_birthday" type="date" remarks="Дата рождения"/>
+            <column name="phone" type="varchar(11)" remarks="Номер телефона"/>
+            <column name="sex" type="boolean" defaultValue="true" remarks="Пол пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rev" type="integer" remarks="№ ревизии">
+                <constraints nullable="false"/>
+            </column>
+            <column name="revtype" type="integer" remarks="Тип операции">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-08-29-create-table-account-audit" author="belochka">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <not>
+                <tableExists tableName="account_audit"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="account_audit" remarks="История изменения учетной записи">
+            <column name="id" type="varchar(36)" remarks="Идентификатор записи">
+                <constraints primaryKeyName="account_audit_pkey" primaryKey="true" nullable="false"/>
+            </column>
+            <column name="active" type="boolean" defaultValue="true" remarks="Флаг активности">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(120)" remarks="Имя учетной записи">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_count_users" type="number" defaultValue="1"
+                    remarks="Максимально возможное количество участников учетной записи">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_type_id" type="varchar(36)" remarks="Тип учетной записи">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rev" type="integer" remarks="№ ревизии">
+                <constraints nullable="false"/>
+            </column>
+            <column name="revtype" type="integer" remarks="Тип операции">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-08-29-create-table-user-account-audit" author="belochka">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <not>
+                <tableExists tableName="user_account_audit"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="user_account_audit" remarks="История изменения учетной записи пользователя">
+            <column name="id" type="varchar(36)" remarks="Идентификатор записи">
+                <constraints primaryKeyName="user_account_audit_pkey" primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(60)" remarks="Логин">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(60)" remarks="Пароль">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="varchar(36)" remarks="Учетная запись">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="varchar(36)" remarks="Пользователь">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rev" type="integer" remarks="№ ревизии">
+                <constraints nullable="false"/>
+            </column>
+            <column name="revtype" type="integer" remarks="Тип операции">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: classpath:env.properties
   application:
     name: echoVoice-user-service
   jpa:
@@ -11,11 +13,9 @@ spring:
             audit_table_suffix: _audit
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://ec2-54-159-175-38.compute-1.amazonaws.com:5432/d87n6mi2uul7ot
-    username: mljoivfzroyjcn
-    password: ea03e71eb1d81ebd06a55e1b30d7d4a4e4ef1cbc734cbfa9119e0e1fde0741c5
-
-
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   liquibase:
     change-log: classpath:/liquibase/db.changelog.xml
   mvc:

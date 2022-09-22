@@ -6,18 +6,45 @@
     <changeSet id="2022-08-29-create-table-revinfo" author="belochka">
         <preConditions onFail="MARK_RAN" onError="CONTINUE">
             <not>
-                <tableExists tableName="revinfo"/>
+                <tableExists tableName="revision_info_envers"/>
             </not>
         </preConditions>
 
-        <createTable tableName="revinfo" remarks="Ревизия аудита">
-            <column name="rev" autoIncrement="true" type="serial" remarks="Идентификатор записи">
-                <constraints primaryKeyName="revinfo_pkey" primaryKey="true" nullable="false"/>
+        <createTable tableName="revision_info_envers" remarks="Ревизия аудита">
+            <column name="id" autoIncrement="true" type="bigserial" remarks="Идентификатор записи">
+                <constraints primaryKeyName="revision_info_envers_pkey" primaryKey="true" nullable="false"/>
             </column>
-            <column name="revtstmp" type="bigint" remarks="Время создания ревизии">
+            <column name="revision_timestamp" type="bigint" remarks="Время создания ревизии">
                 <constraints nullable="false"/>
             </column>
             <column name="username" type="varchar(120)" remarks="Имя пользователя">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-08-29-create-table-revchanges" author="belochka">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <not>
+                <tableExists tableName="revision_changes_envers"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="revision_changes_envers" remarks="Ревизия аудита">
+            <column name="id" type="varchar(36)" remarks="Идентификатор записи">
+                <constraints primaryKeyName="revision_changes_envers_pkey" primaryKey="true" nullable="false"/>
+            </column>
+            <column name="revision_id" type="bigint" remarks="№ ревизии">
+                <constraints foreignKeyName="revision_changes_envers_fkey" references="revision_info_envers(id)"
+                             nullable="false"/>
+            </column>
+            <column name="entity_name" type="varchar(120)" remarks="Имя cущности в сервисе">
+                <constraints nullable="false"/>
+            </column>
+            <column name="table_name" type="varchar(120)" remarks="Имя таблицы">
+                <constraints nullable="false"/>
+            </column>
+            <column name="revision_operation" type="smallint" remarks="Тип операции">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -49,10 +76,11 @@
             <column name="sex" type="boolean" defaultValue="true" remarks="Пол пользователя">
                 <constraints nullable="false"/>
             </column>
-            <column name="rev" type="integer" remarks="№ ревизии">
-                <constraints nullable="false"/>
+            <column name="revision_id" type="bigint" remarks="№ ревизии">
+                <constraints foreignKeyName="user_application_audit_fkey" references="revision_info_envers(id)"
+                             nullable="false"/>
             </column>
-            <column name="revtype" type="integer" remarks="Тип операции">
+            <column name="revision_operation" type="smallint" remarks="Тип операции">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -82,10 +110,11 @@
             <column name="account_type_id" type="varchar(36)" remarks="Тип учетной записи">
                 <constraints nullable="false"/>
             </column>
-            <column name="rev" type="integer" remarks="№ ревизии">
-                <constraints nullable="false"/>
+            <column name="revision_id" type="bigint" remarks="№ ревизии">
+                <constraints foreignKeyName="account_audit_fkey" references="revision_info_envers(id)"
+                             nullable="false"/>
             </column>
-            <column name="revtype" type="integer" remarks="Тип операции">
+            <column name="revision_operation" type="smallint" remarks="Тип операции">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -114,10 +143,11 @@
             <column name="user_id" type="varchar(36)" remarks="Пользователь">
                 <constraints nullable="false"/>
             </column>
-            <column name="rev" type="integer" remarks="№ ревизии">
-                <constraints nullable="false"/>
+            <column name="revision_id" type="bigint" remarks="№ ревизии">
+                <constraints foreignKeyName="user_account_audit_fkey" references="revision_info_envers(id)"
+                             nullable="false"/>
             </column>
-            <column name="revtype" type="integer" remarks="Тип операции">
+            <column name="revision_operation" type="smallint" remarks="Тип операции">
                 <constraints nullable="false"/>
             </column>
         </createTable>

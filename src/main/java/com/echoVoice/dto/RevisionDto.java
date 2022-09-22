@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RevisionDto<T> {
-    private long revisionNumber;
+    private long revisionId;
 
     private RevisionMetadata.RevisionType revisionType;
 

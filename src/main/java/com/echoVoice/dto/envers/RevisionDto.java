@@ -1,4 +1,4 @@
-package com.echoVoice.dto;
+package com.echoVoice.dto.envers;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,13 +13,14 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RevisionDto<T> {
-    private long revisionId;
+    private long id;
 
-    private RevisionMetadata.RevisionType revisionOperation;
+    private RevisionMetadata.RevisionType operation;
 
-    private LocalDate revisionDate;
+    // ToDo: LocalDate -> LocalDateTime
+    private LocalDate date;
 
-    private String revisionUserName;
+    private String userName;
 
-    private T revisionObject;
+    private T object;
 }

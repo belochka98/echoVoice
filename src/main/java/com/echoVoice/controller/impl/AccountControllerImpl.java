@@ -4,7 +4,7 @@ import com.echoVoice.controller.AccountController;
 import com.echoVoice.controller.utills.response.ResultResponse;
 import com.echoVoice.controller.utills.response.ResultResponseFactory;
 import com.echoVoice.dto.AccountDto;
-import com.echoVoice.dto.RevisionDto;
+import com.echoVoice.dto.envers.RevisionDto;
 import com.echoVoice.mapper.AccountMapper;
 import com.echoVoice.mapper.RevisionMapper;
 import com.echoVoice.service.AccountService;

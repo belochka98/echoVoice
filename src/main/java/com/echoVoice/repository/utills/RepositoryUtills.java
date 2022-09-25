@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class RepositoryUtills {
+    // ToDo: logs of others actions in method
     public static void setQueryParametersByFilter(Query query, Object filter) {
         log.info("Trying to set parameters to query by " + filter.getClass().getSimpleName() + " class");
 

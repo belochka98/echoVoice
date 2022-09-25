@@ -1,10 +1,12 @@
-package com.echoVoice.dto;
+package com.echoVoice.dto.envers;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.history.RevisionMetadata;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -13,12 +15,14 @@ import org.springframework.data.history.RevisionMetadata;
 public class RevisionChangeDto {
     private String id;
 
-    @JsonIgnoreProperties({"revisionObject", "revisionOperation"})
-    private RevisionDto revision;
-
     private String tableName;
 
     private String entityClassName;
 
-    private RevisionMetadata.RevisionType operation;
+    private String revisionId;
+
+    // ToDo: LocalDate -> LocalDateTime
+    private LocalDate revisionDate;
+
+    private RevisionMetadata.RevisionType revisionOperation;
 }

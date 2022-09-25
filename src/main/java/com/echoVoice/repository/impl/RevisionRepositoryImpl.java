@@ -48,11 +48,11 @@ public class RevisionRepositoryImpl implements RevisionRepository {
     }
 
     private String getSqlSelect(RevisionFilterDto filter) {
-        return " select revisionObject from "
+        return " select object from "
                 + entity.getSimpleName()
-                + " revisionObject where 1 = 1 "
+                + " object where 1 = 1 "
                 + (CollectionUtils.isEmpty(filter.getOperations())
                 ? ""
-                : " and revisionObject.operation in (:operations) ");
+                : " and object.operation in (:operations) ");
     }
 }

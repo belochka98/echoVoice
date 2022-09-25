@@ -48,7 +48,8 @@ public class RevisionEntityCustom implements Serializable {
     @ToString.Exclude
     private Set<RevisionChange> revisionChanges = new HashSet<>();
 
-    private String username;
+    @Column(name = "username")
+    private String userName;
 
     @Override
     public boolean equals(Object o) {

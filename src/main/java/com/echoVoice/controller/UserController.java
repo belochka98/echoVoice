@@ -1,8 +1,8 @@
 package com.echoVoice.controller;
 
 import com.echoVoice.controller.utills.response.ResultResponse;
-import com.echoVoice.dto.RevisionDto;
 import com.echoVoice.dto.UserDto;
+import com.echoVoice.dto.envers.RevisionDto;
 
 import java.util.Collection;
 

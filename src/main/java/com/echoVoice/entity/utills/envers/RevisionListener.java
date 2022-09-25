@@ -21,7 +21,7 @@ public class RevisionListener implements EntityTrackingRevisionListener {
     public void newRevision(Object revisionEntityObject) {
         RevisionEntityCustom revisionEntityCustom = (RevisionEntityCustom) revisionEntityObject;
 
-        revisionEntityCustom.setUsername("belochka");
+        revisionEntityCustom.setUserName("belochka");
     }
 
     @Override

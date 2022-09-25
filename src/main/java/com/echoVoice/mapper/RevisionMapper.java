@@ -1,7 +1,7 @@
 package com.echoVoice.mapper;
 
-import com.echoVoice.dto.RevisionChangeDto;
-import com.echoVoice.dto.RevisionDto;
+import com.echoVoice.dto.envers.RevisionChangeDto;
+import com.echoVoice.dto.envers.RevisionDto;
 import com.echoVoice.entity.utills.envers.RevisionChange;
 import com.echoVoice.entity.utills.envers.RevisionEntityCustom;
 import org.mapstruct.Mapper;
@@ -19,24 +19,20 @@ import java.util.Collection;
 public interface RevisionMapper {
     RevisionMapper MAPPER = Mappers.getMapper(RevisionMapper.class);
 
-    @Mapping(target = "revisionId", expression = "java(revision.getRequiredRevisionNumber().longValue())")
-    @Mapping(target = "revisionOperation", expression = "java(revision.getMetadata().getRevisionType())")
-    @Mapping(target = "revisionDate", expression = "java(LocalDate.ofInstant(revision.getMetadata().getRequiredRevisionInstant(), ZoneId.systemDefault()))")
-    @Mapping(target = "revisionUserName", expression = "java(((RevisionEntityCustom) revision.getMetadata().getDelegate()).getUsername())")
-    @Mapping(target = "revisionObject", expression = "java(revision.getEntity())")
+    @Mapping(target = "id", expression = "java(revision.getRequiredRevisionNumber().longValue())")
+    @Mapping(target = "operation", expression = "java(revision.getMetadata().getRevisionType())")
+    @Mapping(target = "date", expression = "java(LocalDate.ofInstant(revision.getMetadata().getRequiredRevisionInstant(), ZoneId.systemDefault()))")
+    @Mapping(target = "userName", expression = "java(((RevisionEntityCustom) revision.getMetadata().getDelegate()).getUserName())")
+    @Mapping(target = "object", expression = "java(revision.getEntity())")
     RevisionDto apply(Revision revision);
 
     Collection<RevisionDto> mapRevisions(Collection<Revision> revisions);
 
-    @Mapping(target = "revisionId", source = "id")
-    @Mapping(target = "revisionDate", expression = "java(Instant.ofEpochMilli(revision.getTimestamp()).atZone(ZoneId.systemDefault()).toLocalDate())")
-    @Mapping(target = "revisionUserName", source = "username")
-    @Mapping(target = "revisionObject", ignore = true)
-    @Mapping(target = "revisionOperation", ignore = true)
-    RevisionDto apply(RevisionEntityCustom revision);
 
-    // @Mapping(target="revision", expression = "java(this.apply(revisionChange.getRevision()))")
+    @Mapping(target = "revisionId", source = "revision.id")
+    @Mapping(target = "revisionDate", expression = "java(Instant.ofEpochMilli(revisionChange.getRevision().getId()).atZone(ZoneId.systemDefault()).toLocalDate())")
+    @Mapping(target = "revisionOperation", source = "operation")
     RevisionChangeDto apply(RevisionChange revisionChange);
 
-    //  Collection<RevisionChangeDto> mapRevisionChanges(Collection<RevisionChange> revisionChanges);
+    Collection<RevisionChangeDto> mapRevisionChanges(Collection<RevisionChange> revisionChanges);
 }

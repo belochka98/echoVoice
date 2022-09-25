@@ -3,8 +3,9 @@ package com.echoVoice.controller.impl;
 import com.echoVoice.controller.RevisionController;
 import com.echoVoice.controller.utills.response.ResultResponse;
 import com.echoVoice.controller.utills.response.ResultResponseFactory;
+import com.echoVoice.dto.envers.RevisionChangeDto;
 import com.echoVoice.dto.filter.RevisionFilterDto;
-import com.echoVoice.entity.utills.envers.RevisionChange;
+import com.echoVoice.mapper.RevisionMapper;
 import com.echoVoice.repository.RevisionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,11 +25,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequiredArgsConstructor
 public class RevisionControllerImpl implements RevisionController {
     private final RevisionRepository revisionRepository;
+    private final RevisionMapper revisionMapper;
     private final ResultResponseFactory responseFactory;
 
     @Override
-    @GetMapping("/all")
-    public ResultResponse<Collection<RevisionChange>> getRevisions(RevisionFilterDto filter) {
-        return responseFactory.createResponseOk(revisionRepository.findRevisions(filter));
+    @GetMapping("/expanded")
+    public ResultResponse<Collection<RevisionChangeDto>> getRevisionChanges(RevisionFilterDto filter) {
+        return responseFactory.createResponseOk(revisionMapper.mapRevisionChanges(revisionRepository.findRevisions(filter)));
     }
 }

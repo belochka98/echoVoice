@@ -33,6 +33,7 @@ public class RevisionChange {
     @EqualsAndHashCode.Include
     private String id = UUID.randomUUID().toString();
 
+    // ToDo: watch N+1 problems
     @ManyToOne
     @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@jacksonId")
     private RevisionEntityCustom revision;

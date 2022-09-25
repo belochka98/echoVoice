@@ -43,6 +43,7 @@ public class RevisionEntityCustom implements Serializable {
     @Column(name = "revision_timestamp")
     private long timestamp;
 
+    // ToDo: watch N+1 problems
     @OneToMany(mappedBy = "revision", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@jacksonId")
     @ToString.Exclude

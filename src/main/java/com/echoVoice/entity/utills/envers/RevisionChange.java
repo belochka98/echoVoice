@@ -1,14 +1,17 @@
 package com.echoVoice.entity.utills.envers;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -22,7 +25,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class RevisionChange {
     @Id
@@ -30,7 +34,8 @@ public class RevisionChange {
     private String id = UUID.randomUUID().toString();
 
     @ManyToOne
-    private CustomTrackingRevisionEntity revision;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@jacksonId")
+    private RevisionEntityCustom revision;
 
     @Column(name = "table_name")
     private String tableName;

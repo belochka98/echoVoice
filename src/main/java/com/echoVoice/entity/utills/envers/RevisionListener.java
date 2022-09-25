@@ -8,6 +8,7 @@ import org.mapstruct.ap.internal.util.Strings;
 import org.springframework.data.history.RevisionMetadata;
 
 import java.util.Set;
+import java.util.UUID;
 
 import static org.springframework.data.history.RevisionMetadata.RevisionType.DELETE;
 import static org.springframework.data.history.RevisionMetadata.RevisionType.INSERT;
@@ -15,27 +16,28 @@ import static org.springframework.data.history.RevisionMetadata.RevisionType.UNK
 import static org.springframework.data.history.RevisionMetadata.RevisionType.UPDATE;
 
 @Slf4j
-public class CustomTrackingRevisionListener implements EntityTrackingRevisionListener {
+public class RevisionListener implements EntityTrackingRevisionListener {
     @Override
     public void newRevision(Object revisionEntityObject) {
-        CustomTrackingRevisionEntity revisionEntity = (CustomTrackingRevisionEntity) revisionEntityObject;
+        RevisionEntityCustom revisionEntityCustom = (RevisionEntityCustom) revisionEntityObject;
 
-        revisionEntity.setUsername("belochka");
+        revisionEntityCustom.setUsername("belochka");
     }
 
     @Override
     public void entityChanged(Class aClass, String entityName, Object entityObject, RevisionType revisionType, Object revisionEntityObject) {
-        CustomTrackingRevisionEntity revisionEntity = (CustomTrackingRevisionEntity) revisionEntityObject;
+        RevisionEntityCustom revisionEntityCustom = (RevisionEntityCustom) revisionEntityObject;
 
         RevisionChange revisionChange = RevisionChange
                 .builder()
-                .revision(revisionEntity)
+                .id(UUID.randomUUID().toString())
+                .revision(revisionEntityCustom)
                 .tableName(getTableName(entityName))
                 .entityClassName(entityName)
                 .operation(getOperation(revisionType))
                 .build();
 
-        revisionEntity.setRevisionChanges(Set.of(revisionChange));
+        revisionEntityCustom.setRevisionChanges(Set.of(revisionChange));
     }
 
     private String getTableName(String entityName) {

@@ -19,7 +19,6 @@ import static jakarta.persistence.EnumType.STRING;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class AccountType {
     @Id
-    @Column(name = "id")
     @EqualsAndHashCode.Include
     private String id = UUID.randomUUID().toString();
 

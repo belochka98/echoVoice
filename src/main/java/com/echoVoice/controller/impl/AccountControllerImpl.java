@@ -69,7 +69,7 @@ public class AccountControllerImpl implements AccountController {
     @Override
     @GetMapping("/revisions/all/{accountId}")
     public Collection<RevisionDto> getAllRevisions(@PathVariable String accountId) {
-        return revisionMapper.to(accountService.getRevisions(accountId).stream().collect(Collectors.toSet()));
+        return revisionMapper.mapRevisions(accountService.getRevisions(accountId).stream().collect(Collectors.toSet()));
     }
 
     @Override

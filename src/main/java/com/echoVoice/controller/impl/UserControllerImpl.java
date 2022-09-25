@@ -69,7 +69,7 @@ public class UserControllerImpl implements UserController {
     @Override
     @GetMapping("/revisions/all/{userId}")
     public Collection<RevisionDto> getAllRevisions(@PathVariable String userId) {
-        return revisionMapper.to(userService.getRevisions(userId).stream().collect(Collectors.toSet()));
+        return revisionMapper.mapRevisions(userService.getRevisions(userId).stream().collect(Collectors.toSet()));
     }
 
     @Override

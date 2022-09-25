@@ -1,5 +1,7 @@
 package com.echoVoice.entity.utills.envers;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,8 +31,8 @@ import java.util.Set;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@RevisionEntity(CustomTrackingRevisionListener.class)
-public class CustomTrackingRevisionEntity implements Serializable {
+@RevisionEntity(RevisionListener.class)
+public class RevisionEntityCustom implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -42,6 +44,7 @@ public class CustomTrackingRevisionEntity implements Serializable {
     private long timestamp;
 
     @OneToMany(mappedBy = "revision", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@jacksonId")
     @ToString.Exclude
     private Set<RevisionChange> revisionChanges = new HashSet<>();
 
@@ -51,7 +54,7 @@ public class CustomTrackingRevisionEntity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        CustomTrackingRevisionEntity that = (CustomTrackingRevisionEntity) o;
+        RevisionEntityCustom that = (RevisionEntityCustom) o;
         return Objects.equals(id, that.id);
     }
 

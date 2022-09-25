@@ -21,7 +21,7 @@ public abstract class UserMapper {
     @Autowired
     private AccountMapper accountMapper;
 
-    @Mapping(target = "userAccounts", source = "user.id", qualifiedByName = "fillUserAccounts")
+    @Mapping(target = "userAccounts", source = "id", qualifiedByName = "fillUserAccounts")
     public abstract UserDto apply(User user);
 
     public abstract Collection<UserDto> to(Collection<User> users);

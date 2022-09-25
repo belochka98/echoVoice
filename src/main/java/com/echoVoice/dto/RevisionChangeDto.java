@@ -6,20 +6,19 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.history.RevisionMetadata;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RevisionDto<T> {
-    private long revisionId;
+public class RevisionChangeDto {
+    private String id;
 
-    private RevisionMetadata.RevisionType revisionOperation;
+    @JsonIgnoreProperties({"revisionObject", "revisionOperation"})
+    private RevisionDto revision;
 
-    private LocalDate revisionDate;
+    private String tableName;
 
-    private String revisionUserName;
+    private String entityClassName;
 
-    private T revisionObject;
+    private RevisionMetadata.RevisionType operation;
 }

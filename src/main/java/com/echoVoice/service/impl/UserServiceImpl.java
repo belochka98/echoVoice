@@ -9,7 +9,6 @@ import org.springframework.data.history.Revisions;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -34,12 +33,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Collection<User> saveUsers(Collection<User> users) {
-        Set<User> savedUsers = users
+        return users
                 .stream()
                 .map(this::saveUser)
                 .collect(Collectors.toSet());
-
-        return savedUsers;
     }
 
     @Override

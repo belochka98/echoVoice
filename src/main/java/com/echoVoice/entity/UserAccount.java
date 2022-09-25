@@ -24,7 +24,6 @@ import java.util.UUID;
 @Audited
 public class UserAccount {
     @Id
-    @Column(name = "id")
     @EqualsAndHashCode.Include
     private String id = UUID.randomUUID().toString();
 

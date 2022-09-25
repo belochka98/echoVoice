@@ -1,4 +1,4 @@
-package com.echoVoice.entity.utills.enums;
+package com.echoVoice.entity.enums;
 
 public enum AccountTypeName {
     DEFAULT,

@@ -1,4 +1,4 @@
-package com.echoVoice.entity.utills.envers;
+package com.echoVoice.entity.envers;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;

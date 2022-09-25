@@ -1,6 +1,6 @@
 package com.echoVoice.entity;
 
-import com.echoVoice.entity.utills.enums.AccountTypeName;
+import com.echoVoice.entity.enums.AccountTypeName;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;

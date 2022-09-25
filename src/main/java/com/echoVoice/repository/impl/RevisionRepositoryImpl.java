@@ -1,7 +1,7 @@
 package com.echoVoice.repository.impl;
 
 import com.echoVoice.dto.filter.RevisionFilterDto;
-import com.echoVoice.entity.utills.envers.RevisionChange;
+import com.echoVoice.entity.envers.RevisionChange;
 import com.echoVoice.repository.RevisionRepository;
 import com.echoVoice.repository.utills.RepositoryUtills;
 import jakarta.persistence.EntityManager;

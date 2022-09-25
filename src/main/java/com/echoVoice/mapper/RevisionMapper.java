@@ -2,8 +2,8 @@ package com.echoVoice.mapper;
 
 import com.echoVoice.dto.envers.RevisionChangeDto;
 import com.echoVoice.dto.envers.RevisionDto;
-import com.echoVoice.entity.utills.envers.RevisionChange;
-import com.echoVoice.entity.utills.envers.RevisionEntityCustom;
+import com.echoVoice.entity.envers.RevisionChange;
+import com.echoVoice.entity.envers.RevisionEntityCustom;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;

@@ -1,4 +1,4 @@
-package com.echoVoice.entity.utills.envers;
+package com.echoVoice.entity.envers;
 
 import jakarta.persistence.Table;
 import lombok.extern.slf4j.Slf4j;
